@@ -1,3 +1,8 @@
+.idea/
+# my settings and cookies
+config_and_cookies_real.json
+venv_rent/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
