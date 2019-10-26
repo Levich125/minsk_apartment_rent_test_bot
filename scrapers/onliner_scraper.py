@@ -153,8 +153,9 @@ class OnlinerScraper:
         {}""".format(initial, updated, created, owner, url, address, price, rooms, additionals)
 
     def main(self):
+        print("onliner main")
         """Main function, constructing message if there is something worth sending"""
-        config_params = json.load(open("./config_and_cookies.json", 'r'))  # this params load takes ~315 microseconds.
+        config_params = json.load(open("./configs/config_and_cookies.json", 'r'))  # this params load takes ~315 microseconds.
         headers = config_params['onliner_headers']
         params = config_params['onliner_params']
         cookies = config_params['onliner_cookies']

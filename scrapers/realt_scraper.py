@@ -22,7 +22,7 @@ class RealtScraper:
         clean_regex = re.compile('<.*?>')
         clean_text = re.sub(clean_regex, '', raw_html)
         clean_text = re.sub(r'(?:\n|\s{2,})', ' ', clean_text)
-        return clean_text
+        return clean_text.strip()
 
     def process_title(self, title: Tag) -> Tuple:
         """Extract id, url and address from the title"""
@@ -38,7 +38,8 @@ class RealtScraper:
 
     def main(self):
         """Main function, constructing message if there is something worth sending"""
-        config_params = json.load(open("./config_and_cookies.json", 'r'))
+        print("realt main")
+        config_params = json.load(open("./configs/config_and_cookies.json", 'r'))
         headers = config_params['realt_headers']
         params = config_params['realt_params']
         cookies = config_params['realt_cookies']

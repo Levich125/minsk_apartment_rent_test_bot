@@ -52,7 +52,7 @@ class KvartirantScraper:
 
     def main(self):
         """Main function, constructing message if there is something worth sending"""
-        config_params = json.load(open("./config_and_cookies.json", 'r'))
+        config_params = json.load(open("./configs/config_and_cookies.json", 'r'))
         headers = config_params['kvartirant_headers']
         params = config_params['kvartirant_params']
         cookies = config_params['kvartirant_cookies']

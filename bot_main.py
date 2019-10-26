@@ -1,14 +1,14 @@
 import json
-from telegram.ext import Updater, CommandHandler, MessageHandler,    Filters, InlineQueryHandler
-from onliner_scraper import OnlinerScraper
-from realt_scraper import RealtScraper
-from kvartirant_scraper import KvartirantScraper
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, InlineQueryHandler
+from scrapers.onliner_scraper import OnlinerScraper
+from scrapers.realt_scraper import RealtScraper
+from scrapers.kvartirant_scraper_new import KvartirantScraper
 
 OS = OnlinerScraper()
 RS = RealtScraper()
 KS = KvartirantScraper()
 
-config_params = json.load(open("./config_and_cookies.json", 'r'))
+config_params = json.load(open("./configs/config_and_cookies.json", 'r'))
 
 KEY = config_params['bot_key']
 
@@ -28,14 +28,14 @@ def get_apartments_realt(bot, job):
 def get_apartments_kvartirant(bot, job):
     cnt = next(KS.main())
     if cnt:
-        job.context.message.reply_text('KVARTIRANT UPDATE\n' + cnt[:5000])
+        job.context.message.reply_text('KVARTIRANT UPDATE\n' + cnt[:2000])
 
 
 def start(bot, update, job_queue):
     update.message.reply_text('bot active')
     job = job_queue.run_repeating(get_apartments_onliner, 10, context=update)
     job = job_queue.run_repeating(get_apartments_realt, 60, context=update)
-    job = job_queue.run_repeating(get_apartments_kvartirant, 60, context=update)
+    job = job_queue.run_repeating(get_apartments_kvartirant, 60, context=update)  # site changed
 
 
 def stop(bot, update, job_queue):
@@ -44,6 +44,7 @@ def stop(bot, update, job_queue):
 
 
 def main():
+    print("Initialized, waiting for new apartments")
     updater = Updater(KEY)
     dp = updater.dispatcher
 
