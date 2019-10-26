@@ -38,7 +38,6 @@ class RealtScraper:
 
     def main(self):
         """Main function, constructing message if there is something worth sending"""
-        print("realt main")
         config_params = json.load(open("./configs/config_and_cookies.json", 'r'))
         headers = config_params['realt_headers']
         params = config_params['realt_params']

@@ -40,10 +40,12 @@ class KvartirantScraper:
         url_regexp = re.compile(r"a href=\"(.+?)\"")
 
         message = ''
+
+        session = requests.Session()
         for page_num in range(1, 10):  # if results are on several pages
 
-            response = requests.get('https://www.kvartirant.by/ads/flats/rent/?page={}'.format(page_num),
-                                    headers=headers, params=params, cookies=cookies)  # page numeration is weird here
+            response = session.get('https://www.kvartirant.by/ads/flats/rent/?page={}'.format(page_num),
+                                   headers=headers, params=params, cookies=cookies)  # page numeration is weird here
 
             soup = BeautifulSoup(response.text, 'html.parser')
             titles = soup.find_all('div', {'class': 'title-obj'})
